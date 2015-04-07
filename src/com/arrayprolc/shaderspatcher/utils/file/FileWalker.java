@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author "stacker" and Kishan from StackOverflow with modifications by Justin
+ * @author "stacker" and "Kishan" from StackOverflow with modifications by Justin
  *         Source:
  *         http://stackoverflow.com/questions/2056221/recursively-list-files
  *         -in-java
