@@ -7,6 +7,10 @@ import com.arrayprolc.shaderspatcher.actions.manager.ActionsManager;
 import com.arrayprolc.shaderspatcher.utils.file.UtilZIP;
 
 public class ShadersPatcherCore {
+    
+    public static String original = "./original.zip";
+    
+    public static String distribute = "./distribute.txt";
 
     public static void main(String[] args) {
 
@@ -31,15 +35,24 @@ public class ShadersPatcherCore {
         for(File f : new File(".").listFiles()){
             if(f.getName().contains(".zip") && !f.getName().contains("modified")){
                 UtilZIP.extractFolder("./" + f.getName(), "./data/original/", null);
+                original = f.getAbsolutePath();
             }
         }
+        for(File f : new File(".").listFiles()){
+            if(f.getName().contains(".txt")){
+                distribute = f.getAbsolutePath();
+            }
+        }
+        String defaultAction = "extract";
         if(args.length == 0){
             for(Action a : ActionsManager.getActions()){
-                if(a.getActionName().equals("create")){
+                if(a.getActionName().equals(defaultAction)){
                     a.runAction();
                     return;
                 }
             }
+            System.out.println("Action " + defaultAction + " not found.");
+            System.exit(0);
             return;
         }
         for(Action a : ActionsManager.getActions()){
@@ -49,6 +62,7 @@ public class ShadersPatcherCore {
             }
         }
         System.out.println("Action " + args[0] + " not found.");
+        System.exit(0);
         return;
     }
 

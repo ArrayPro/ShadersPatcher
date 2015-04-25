@@ -1,0 +1,5 @@
+original-file-name: seus-v10.1-Preview2.zip
+original-download-link: http://sonicether.com/shaders/download/v10.1Preview2/
+modified-owner: ArrayPro
+modified-version: 1.0.0
+modified-name: Weather and Nvidia Patch

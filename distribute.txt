@@ -1,0 +1,8 @@
+//STOP! Don't know what this is?
+//You must use the Shaders Patcher by ArrayPro! http://www.arrayprolc.com/shaderspatcher
+//For instructions on how to use, visit ArrayPro's website, listed above.
+//To find the original file, contact the modified shaderpack author or visit the official download page of the modified shaderpack.
+gbuffers_water.fsh;3 #define%20WAVE_HEIGHT%201.9f&nl280 	position%20=%20GetWaterParallaxCoord(position,%20viewVector)[semicolon]&nl
+gbuffers_weather.fsh;21 	&nl
+header;original-file-name: seus-v10.1-Preview2.zip&nloriginal-download-link: http://sonicether.com/shaders/download/v10.1Preview2/&nlmodified-owner: ArrayPro&nlmodified-version: 1.0.0&nlmodified-name: Weather and Nvidia Patch&nl
+gbuffers_terrain.fsh;21 #define%20NORMAL_MAP_MAX_ANGLE%202.0f%20%20%20		//The%20higher%20the%20value,%20the%20more%20extreme%20per-pixel%20normal%20mapping%20(bump%20mapping)%20will%20be.&nl24 #define%20PARALLAX&nl

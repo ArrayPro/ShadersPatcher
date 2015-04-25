@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.arrayprolc.shaderspatcher.actions.Action;
 import com.arrayprolc.shaderspatcher.actions.ActionCreate;
+import com.arrayprolc.shaderspatcher.actions.ActionExtract;
 
 public class ActionsManager {
 
@@ -11,6 +12,7 @@ public class ActionsManager {
 
     public static void registerActions() {
         actions.add(new ActionCreate());
+        actions.add(new ActionExtract());
     }
 
     public static ArrayList<Action> getActions() {

@@ -7,8 +7,10 @@ import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
 
+import com.arrayprolc.shaderspatcher.core.ShadersPatcherCore;
 import com.arrayprolc.shaderspatcher.packet.ModifiedPacket;
 import com.arrayprolc.shaderspatcher.utils.file.FileWalker;
+import com.arrayprolc.shaderspatcher.utils.md5.UtilMD5;
 
 public class ActionCreate extends Action {
 
@@ -33,27 +35,22 @@ public class ActionCreate extends Action {
         ArrayList<File> files = w.walk(modifiedFolder.getAbsolutePath());
         ArrayList<File> filesOrg = w.walk(originalFolder.getAbsolutePath());
         if (files == null || filesOrg == null) {
-            //System.out.println("Can't find files.");
             System.exit(0);
             return;
         }
         HashMap<String, String> savePacketLists = new HashMap<String, String>();
-        // TODO clean this up
         for (File f : files) {
             boolean cont = true;
             ArrayList<String> lines = new ArrayList<String>();
             ArrayList<String> lines2 = new ArrayList<String>();
-            //System.out.println("Beginning to analyze " + f.getName() + " and its counterpart.");
             try {
                 lines.addAll(FileUtils.readLines(f));
                 File f2 = getFileFromName(f.getName(), filesOrg);
                 if (f2 == null) {
-                   // System.out.println(f.getName() + " is not in original and will be added later.");
                     cont = true;
                 }
                 lines2.addAll(FileUtils.readLines(f2));
             } catch (Exception ex) {
-                //System.out.println(f.getName() + " cannot be read. Continuing.");
                 cont = false;
             }
             if (cont) {
@@ -94,13 +91,17 @@ public class ActionCreate extends Action {
         }
         String header2 = "";
         try {
-            for(String s : FileUtils.readLines(header)){
+            for (String s : FileUtils.readLines(header)) {
                 header2 = header2 + s + "&nl";
             }
         } catch (IOException e) {
             header2 = "NO_HEADER";
         }
-        savePacketList(header2, savePacketLists);
+        String md5 = "";
+        try{
+            md5 = UtilMD5.getMD5Checksum(ShadersPatcherCore.original);
+        }catch(Exception ex) {}
+        savePacketList(header2, md5, savePacketLists);
         System.out.println("Done!");
         System.exit(0);
         return;
@@ -124,12 +125,13 @@ public class ActionCreate extends Action {
         }
     }
 
-    public void savePacketList(String header, HashMap<String, String> savePacketList) {
+    public void savePacketList(String header, String md5, HashMap<String, String> savePacketList) {
         String builder = "";
         String[] title = new String[] { "STOP! Don't know what this is?", "You must use the Shaders Patcher by ArrayPro! http://www.arrayprolc.com/shaderspatcher",
                 "For instructions on how to use, visit ArrayPro's website, listed above.",
                 "To find the original file, contact the modified shaderpack author or visit the official download page of the modified shaderpack." };
         savePacketList.put("header", header);
+        savePacketList.put("md5", md5);
         for (String s : title) {
             builder = builder + "//" + s + "\n";
         }
@@ -137,8 +139,6 @@ public class ActionCreate extends Action {
             String s2 = savePacketList.get(s);
             builder = builder + s + ";" + s2 + "\n";
         }
-        //System.out.println("----------------------------------------------");
-        //System.out.println(builder);
         try {
             FileUtils.writeStringToFile(new File("./data/new/" + "distribute.txt"), builder);
         } catch (IOException e) {

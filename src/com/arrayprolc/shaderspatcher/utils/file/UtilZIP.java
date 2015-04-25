@@ -5,10 +5,10 @@ import net.lingala.zip4j.exception.ZipException;
 
 /**
  * 
- * @author Joe Michael from StackOverflow with modifications by Justin Source:
+ * @author Joe Michael from StackOverflow with modifications by Justin (Source:
  *         http
  *         ://stackoverflow.com/questions/9324933/what-is-a-good-java-library
- *         -to-zip-unzip-files
+ *         -to-zip-unzip-files)
  *
  */
 public class UtilZIP {
